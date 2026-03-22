@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Challenge — Code Challenges That Teach | BlackRoad Education</title>
+<meta name="description" content="Competitive programming meets education. Real-time coding challenges, AI-generated problems, multi-language support. Learn by doing.">
+<meta name="theme-color" content="#FF2255">
+<meta property="og:title" content="Code Challenge — Code Challenges That Teach">
+<meta property="og:description" content="Real-time coding challenges that adapt to your skill. Python, JS, Rust, Go. AI-generated problems. Leaderboards.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --gradient:linear-gradient(90deg,#FF6B2B,#FF2255,#CC00AA,#8844FF,#4488FF,#00D4FF);
+    --bg:#000;--surface:#0a0a0a;--card-border:#1a1a1a;
+    --text:#e0e0e0;--text-bright:#ffffff;--text-dim:#888;
+    --pink:#FF2255;--orange:#FF6B2B;--violet:#8844FF;--blue:#4488FF;--cyan:#00D4FF;--magenta:#CC00AA;
+    --green:#00ff88;--red:#ff4444;--yellow:#ffcc00;
+    --font-heading:'Space Grotesk',sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+    --font-body:'Space Grotesk',sans-serif;
+  }
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:var(--bg);color:var(--text);font-family:var(--font-body);line-height:1.7;overflow-x:hidden}
+  a{color:var(--cyan);text-decoration:none;transition:color .2s}a:hover{color:var(--pink)}
+  h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);color:var(--text-bright);line-height:1.2}
+  code,pre{font-family:var(--font-mono)}
+  .gradient-text{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .gradient-line{height:2px;background:var(--gradient);border:none;margin:2rem 0}
+  .container{max-width:1200px;margin:0 auto;padding:0 2rem}
+  .section{padding:6rem 0}
+  .btn{display:inline-block;padding:.75rem 2rem;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;transition:all .3s;border:none;font-family:var(--font-heading)}
+  .btn-primary{background:var(--gradient);color:#000}
+  .btn-primary:hover{opacity:.9;transform:translateY(-1px);color:#000}
+  .btn-outline{border:1px solid var(--card-border);color:var(--text-bright);background:transparent}
+  .btn-outline:hover{border-color:var(--pink);color:var(--pink)}
+  .card{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:2rem;transition:border-color .3s}
+  .card:hover{border-color:#333}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:1rem 2rem;background:rgba(0,0,0,.9);border-bottom:1px solid var(--card-border)}
+  nav .nav-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+  nav .logo{font-family:var(--font-heading);font-weight:700;font-size:1.4rem;color:var(--text-bright)}
+  nav .logo span{background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  nav .nav-links{display:flex;gap:2rem;align-items:center}
+  nav .nav-links a{color:var(--text-dim);font-size:.9rem;font-weight:500}
+  nav .nav-links a:hover{color:var(--text-bright)}
+
+  .hero{padding:10rem 0 6rem;text-align:center;position:relative}
+  .hero::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:800px;height:800px;background:radial-gradient(circle,rgba(255,34,85,.06) 0%,transparent 70%);pointer-events:none}
+  .hero-badge{display:inline-block;padding:.4rem 1.2rem;border:1px solid var(--card-border);border-radius:100px;font-size:.8rem;color:var(--text-dim);margin-bottom:2rem;font-family:var(--font-mono)}
+  .hero h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:700;margin-bottom:1.5rem;letter-spacing:-.02em}
+  .hero .subtitle{font-size:clamp(1.1rem,2.5vw,1.4rem);color:var(--text-dim);max-width:700px;margin:0 auto 3rem;line-height:1.6}
+  .hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;flex-wrap:wrap}
+  .hero-stat .number{font-size:2.5rem;font-weight:700;font-family:var(--font-heading);background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .hero-stat .label{font-size:.85rem;color:var(--text-dim);margin-top:.3rem}
+
+  .section-header{text-align:center;margin-bottom:4rem}
+  .section-header h2{font-size:clamp(1.8rem,4vw,2.8rem);margin-bottom:1rem}
+  .section-header p{color:var(--text-dim);font-size:1.1rem;max-width:600px;margin:0 auto}
+  .section-tag{font-family:var(--font-mono);font-size:.8rem;color:var(--cyan);margin-bottom:.75rem;display:block}
+
+  .feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-top:3rem}
+  .card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:1.2rem}
+  .card h3{font-size:1.2rem;margin-bottom:.75rem}
+  .card p{color:var(--text-dim);font-size:.95rem;line-height:1.6}
+
+  /* EDITOR DEMO */
+  .editor-demo{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;overflow:hidden;margin-top:3rem}
+  .editor-tabs{display:flex;background:#050505;border-bottom:1px solid var(--card-border);padding:0 1rem}
+  .editor-tab{padding:.75rem 1.5rem;font-family:var(--font-mono);font-size:.8rem;color:var(--text-dim);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+  .editor-tab.active{color:var(--text-bright);border-bottom-color:var(--pink)}
+  .editor-body{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
+  .editor-code{padding:2rem;border-right:1px solid var(--card-border);overflow:auto}
+  .editor-code pre{font-family:var(--font-mono);font-size:.85rem;line-height:1.8;color:var(--text)}
+  .editor-output{padding:2rem;display:flex;flex-direction:column}
+  .editor-output .output-header{font-family:var(--font-mono);font-size:.75rem;color:var(--text-dim);margin-bottom:1rem;display:flex;justify-content:space-between;align-items:center}
+  .output-status{display:flex;align-items:center;gap:.5rem}
+  .status-dot{width:8px;height:8px;border-radius:50%}
+  .status-dot.pass{background:var(--green)}
+  .status-dot.fail{background:var(--red)}
+  .test-case{padding:.75rem 1rem;border:1px solid var(--card-border);border-radius:8px;margin-bottom:.5rem;font-family:var(--font-mono);font-size:.8rem}
+  .test-case.pass{border-color:rgba(0,255,136,.2)}
+  .test-case.fail{border-color:rgba(255,68,68,.2)}
+  .test-case .tc-label{color:var(--text-dim);font-size:.7rem;margin-bottom:.3rem}
+  .test-case .tc-result{display:flex;justify-content:space-between;align-items:center}
+  .tc-pass{color:var(--green)}
+  .tc-fail{color:var(--red)}
+  .tc-time{color:var(--text-dim);font-size:.7rem}
+
+  /* LANGUAGE GRID */
+  .lang-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-top:3rem}
+  .lang-card{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:1.5rem;text-align:center;transition:border-color .3s}
+  .lang-card:hover{border-color:#333}
+  .lang-card .lang-icon{font-size:2rem;margin-bottom:.75rem}
+  .lang-card h4{font-size:.95rem;margin-bottom:.3rem}
+  .lang-card p{font-family:var(--font-mono);font-size:.7rem;color:var(--text-dim)}
+
+  /* DIFFICULTY LEVELS */
+  .difficulty-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+  .diff-card{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:2rem;text-align:center}
+  .diff-card .diff-level{font-family:var(--font-mono);font-size:.75rem;padding:.2rem .8rem;border-radius:4px;display:inline-block;margin-bottom:1rem}
+  .diff-card h4{margin-bottom:.5rem}
+  .diff-card p{color:var(--text-dim);font-size:.85rem}
+  .level-easy .diff-level{color:var(--green);border:1px solid rgba(0,255,136,.3)}
+  .level-medium .diff-level{color:var(--yellow);border:1px solid rgba(255,204,0,.3)}
+  .level-hard .diff-level{color:var(--orange);border:1px solid rgba(255,107,43,.3)}
+  .level-expert .diff-level{color:var(--red);border:1px solid rgba(255,68,68,.3)}
+
+  /* LEADERBOARD */
+  .leaderboard{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;overflow:hidden;margin-top:3rem;max-width:700px;margin-left:auto;margin-right:auto}
+  .lb-header{padding:1.5rem 2rem;border-bottom:1px solid var(--card-border);display:flex;justify-content:space-between;align-items:center}
+  .lb-header h3{font-size:1.1rem}
+  .lb-header .lb-badge{font-family:var(--font-mono);font-size:.7rem;color:var(--cyan);border:1px solid rgba(0,212,255,.3);padding:.2rem .6rem;border-radius:4px}
+  .lb-row{display:grid;grid-template-columns:40px 1fr 100px 80px;padding:1rem 2rem;border-bottom:1px solid var(--card-border);align-items:center;font-size:.9rem;transition:background .2s}
+  .lb-row:hover{background:rgba(255,255,255,.02)}
+  .lb-row:last-child{border-bottom:none}
+  .lb-rank{font-family:var(--font-mono);font-weight:700;color:var(--text-dim)}
+  .lb-rank.gold{color:#ffd700}
+  .lb-rank.silver{color:#c0c0c0}
+  .lb-rank.bronze{color:#cd7f32}
+  .lb-name{font-weight:500}
+  .lb-score{font-family:var(--font-mono);color:var(--cyan);text-align:right}
+  .lb-streak{font-family:var(--font-mono);color:var(--text-dim);font-size:.8rem;text-align:right}
+
+  /* AI SECTION */
+  .ai-features{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-top:3rem}
+  .ai-visual{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:2rem}
+  .ai-prompt{font-family:var(--font-mono);font-size:.85rem;line-height:1.8}
+  .ai-prompt .system{color:var(--violet)}
+  .ai-prompt .user{color:var(--cyan)}
+  .ai-prompt .assistant{color:var(--green)}
+  .ai-prompt .dim{color:var(--text-dim)}
+  .ai-list h3{font-size:1.3rem;margin-bottom:1.5rem}
+  .ai-list ul{list-style:none}
+  .ai-list li{padding:.75rem 0;border-bottom:1px solid var(--card-border);display:flex;gap:1rem;align-items:flex-start}
+  .ai-list li:last-child{border-bottom:none}
+  .ai-check{color:var(--cyan);flex-shrink:0;margin-top:.2rem}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem;margin-top:3rem}
+  .pricing-card{background:var(--surface);border:1px solid var(--card-border);border-radius:16px;padding:2.5rem;position:relative;transition:border-color .3s}
+  .pricing-card:hover{border-color:#333}
+  .pricing-card.featured{border-color:var(--pink)}
+  .pricing-card.featured::before{content:'BEST VALUE';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gradient);color:#000;font-family:var(--font-mono);font-size:.7rem;font-weight:700;padding:.3rem 1rem;border-radius:100px}
+  .plan-name{font-family:var(--font-mono);font-size:.8rem;color:var(--text-dim);margin-bottom:.5rem}
+  .price{font-size:3rem;font-weight:700;margin-bottom:.5rem}
+  .price span{font-size:1rem;color:var(--text-dim);font-weight:400}
+  .plan-desc{color:var(--text-dim);font-size:.9rem;margin-bottom:2rem}
+  .pricing-features{list-style:none;margin-bottom:2rem}
+  .pricing-features li{padding:.5rem 0;font-size:.9rem;display:flex;align-items:center;gap:.75rem}
+  .pricing-features li::before{content:'\2713';color:var(--cyan);font-weight:700}
+
+  /* METRICS ROW */
+  .metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+  .metric-box{background:var(--surface);border:1px solid var(--card-border);border-radius:12px;padding:2rem;text-align:center}
+  .metric-box .metric-val{font-size:2rem;font-weight:700;background:var(--gradient);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .metric-box .metric-label{color:var(--text-dim);font-size:.8rem;margin-top:.5rem}
+
+  /* CODE BLOCK */
+  .code-block{background:#0d0d0d;border:1px solid var(--card-border);border-radius:12px;padding:1.5rem;overflow-x:auto}
+  .code-block code{font-family:var(--font-mono);font-size:.85rem;color:var(--text);line-height:1.8}
+  .comment{color:#555}.keyword{color:var(--pink)}.string{color:var(--cyan)}.number{color:var(--orange)}.function{color:var(--violet)}
+
+  /* CTA */
+  .cta-section{text-align:center;padding:8rem 0}
+  .cta-section h2{font-size:clamp(2rem,4vw,3.5rem);margin-bottom:1.5rem}
+  .cta-section p{color:var(--text-dim);font-size:1.1rem;max-width:500px;margin:0 auto 2.5rem}
+
+  footer{border-top:1px solid var(--card-border);padding:4rem 0 2rem}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+  .footer-brand p{color:var(--text-dim);font-size:.85rem;line-height:1.6;max-width:300px;margin-top:1rem}
+  .footer-col h4{font-size:.85rem;color:var(--text-bright);margin-bottom:1rem;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.05em}
+  .footer-col a{display:block;color:var(--text-dim);font-size:.85rem;padding:.3rem 0}
+  .footer-col a:hover{color:var(--text-bright)}
+  .footer-bottom{border-top:1px solid var(--card-border);padding-top:2rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  .footer-bottom p{color:var(--text-dim);font-size:.8rem}
+  .footer-bottom .legal{display:flex;gap:1.5rem}
+  .footer-bottom .legal a{color:var(--text-dim);font-size:.8rem}
+
+  @media(max-width:768px){
+    nav .nav-links{display:none}
+    .editor-body{grid-template-columns:1fr}
+    .editor-code{border-right:none;border-bottom:1px solid var(--card-border)}
+    .ai-features{grid-template-columns:1fr}
+    .difficulty-grid{grid-template-columns:1fr 1fr}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    .metric-row{grid-template-columns:1fr 1fr}
+    .section{padding:4rem 0}
+    .hero{padding:8rem 0 4rem}
+  }
+  @media(max-width:480px){
+    .footer-grid{grid-template-columns:1fr}
+    .difficulty-grid{grid-template-columns:1fr}
+    .metric-row{grid-template-columns:1fr}
+  }
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .animate{animation:fadeInUp .6s ease forwards;opacity:0}
+  .delay-1{animation-delay:.1s}.delay-2{animation-delay:.2s}.delay-3{animation-delay:.3s}.delay-4{animation-delay:.4s}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="logo"><span>Code</span>Challenge</div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#languages">Languages</a>
+      <a href="#ai">AI Engine</a>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#" class="btn btn-outline">Sign In</a>
+      <a href="#start" class="btn btn-primary">Start Coding</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <span class="hero-badge">BlackRoad Education</span>
+    <h1 class="animate"><span class="gradient-text">Code Challenges<br>That Teach</span></h1>
+    <p class="subtitle animate delay-1">Competitive programming meets adaptive education. AI-generated problems that scale to your skill level. Real-time execution in Python, JavaScript, Rust, and Go. Learn by solving, not watching.</p>
+    <div class="hero-actions animate delay-2">
+      <a href="#start" class="btn btn-primary">Start Your First Challenge</a>
+      <a href="#demo" class="btn btn-outline">See It In Action</a>
+    </div>
+    <div class="hero-stats animate delay-3">
+      <div class="hero-stat">
+        <div class="number">4</div>
+        <div class="label">Languages</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">AI</div>
+        <div class="label">Adaptive Problems</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">&lt;50ms</div>
+        <div class="label">Execution Time</div>
+      </div>
+      <div class="hero-stat">
+        <div class="number">Free</div>
+        <div class="label">5 Challenges/Day</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="gradient-line">
+
+<section class="section" id="demo">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// LIVE EDITOR</span>
+      <h2>Code. Submit. <span class="gradient-text">Learn.</span></h2>
+      <p>Real-time code execution with instant feedback and test case validation.</p>
+    </div>
+    <div class="editor-demo">
+      <div class="editor-tabs">
+        <div class="editor-tab active">solution.py</div>
+        <div class="editor-tab">test_cases.json</div>
+        <div class="editor-tab">hints.md</div>
+      </div>
+      <div class="editor-body">
+        <div class="editor-code">
+          <pre><code><span class="comment"># Challenge: Two Sum</span>
+<span class="comment"># Given an array of integers and a target,</span>
+<span class="comment"># return indices of two numbers that add to target.</span>
+<span class="comment"># Difficulty: Easy | Time Limit: 50ms</span>
+
+<span class="keyword">def</span> <span class="function">two_sum</span>(nums: list[int], target: int) -> list[int]:
+    seen = {}
+    <span class="keyword">for</span> i, num <span class="keyword">in</span> enumerate(nums):
+        complement = target - num
+        <span class="keyword">if</span> complement <span class="keyword">in</span> seen:
+            <span class="keyword">return</span> [seen[complement], i]
+        seen[num] = i
+    <span class="keyword">return</span> []
+
+<span class="comment"># Time: O(n) | Space: O(n)</span>
+<span class="comment"># Optimal solution found!</span></code></pre>
+        </div>
+        <div class="editor-output">
+          <div class="output-header">
+            <span>Test Results</span>
+            <div class="output-status">
+              <span class="status-dot pass"></span>
+              <span style="font-size:.8rem;color:var(--green)">All Passed</span>
+            </div>
+          </div>
+          <div class="test-case pass">
+            <div class="tc-label">Test Case 1</div>
+            <div class="tc-result">
+              <span>two_sum([2,7,11,15], 9) = [0,1]</span>
+              <span class="tc-pass">PASS</span>
+            </div>
+            <div class="tc-time">2.1ms</div>
+          </div>
+          <div class="test-case pass">
+            <div class="tc-label">Test Case 2</div>
+            <div class="tc-result">
+              <span>two_sum([3,2,4], 6) = [1,2]</span>
+              <span class="tc-pass">PASS</span>
+            </div>
+            <div class="tc-time">1.8ms</div>
+          </div>
+          <div class="test-case pass">
+            <div class="tc-label">Test Case 3</div>
+            <div class="tc-result">
+              <span>two_sum([3,3], 6) = [0,1]</span>
+              <span class="tc-pass">PASS</span>
+            </div>
+            <div class="tc-time">1.2ms</div>
+          </div>
+          <div class="test-case pass">
+            <div class="tc-label">Test Case 4 (Edge)</div>
+            <div class="tc-result">
+              <span>two_sum([1], 2) = []</span>
+              <span class="tc-pass">PASS</span>
+            </div>
+            <div class="tc-time">0.8ms</div>
+          </div>
+          <div class="test-case pass">
+            <div class="tc-label">Test Case 5 (Performance)</div>
+            <div class="tc-result">
+              <span>two_sum([...100K items], 199999)</span>
+              <span class="tc-pass">PASS</span>
+            </div>
+            <div class="tc-time">12.4ms</div>
+          </div>
+          <div style="margin-top:1rem;padding:1rem;border:1px solid rgba(0,255,136,.2);border-radius:8px;font-family:var(--font-mono);font-size:.8rem">
+            <div style="color:var(--green);margin-bottom:.5rem">Performance Analysis</div>
+            <div style="color:var(--text-dim)">Runtime: 12.4ms (beats 94% of submissions)</div>
+            <div style="color:var(--text-dim)">Memory: 2.1MB (optimal)</div>
+            <div style="color:var(--text-dim)">Complexity: O(n) time, O(n) space</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// FEATURES</span>
+      <h2>More Than a <span class="gradient-text">Code Judge</span></h2>
+      <p>Every challenge teaches. Every solution is analyzed. Every learner improves.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="card animate">
+        <div class="card-icon" style="background:rgba(255,34,85,.1);color:var(--pink)">&#9889;</div>
+        <h3>Real-Time Execution</h3>
+        <p>Sandboxed code execution with sub-50ms response times. Test against hidden and edge cases. Performance profiling on every submission. No waiting, no queues.</p>
+      </div>
+      <div class="card animate delay-1">
+        <div class="card-icon" style="background:rgba(0,212,255,.1);color:var(--cyan)">&#129302;</div>
+        <h3>AI-Adaptive Problems</h3>
+        <p>Problems generated and calibrated to your current skill level. Too easy? Complexity increases. Struggling? Get targeted practice on weak areas. The algorithm learns you.</p>
+      </div>
+      <div class="card animate delay-2">
+        <div class="card-icon" style="background:rgba(136,68,255,.1);color:var(--violet)">&#127942;</div>
+        <h3>Competitive Leaderboards</h3>
+        <p>Global rankings, weekly contests, team competitions. ELO-based rating system ensures fair matchmaking. Climb the ranks while learning fundamentals.</p>
+      </div>
+      <div class="card animate delay-3">
+        <div class="card-icon" style="background:rgba(255,107,43,.1);color:var(--orange)">&#128218;</div>
+        <h3>Educational Explanations</h3>
+        <p>Every problem includes concept breakdowns, optimal solution walkthroughs, and common pitfall analysis. Video explanations for complex algorithms. Learn the why, not just the how.</p>
+      </div>
+      <div class="card animate">
+        <div class="card-icon" style="background:rgba(204,0,170,.1);color:var(--magenta)">&#128202;</div>
+        <h3>Skill Analytics</h3>
+        <p>Track your growth across data structures, algorithms, and design patterns. Visualize mastery over time. Identify knowledge gaps with precision. Export your profile for job applications.</p>
+      </div>
+      <div class="card animate delay-1">
+        <div class="card-icon" style="background:rgba(68,136,255,.1);color:var(--blue)">&#128101;</div>
+        <h3>Team Challenges</h3>
+        <p>Create study groups, compete in team events, pair-program on problems. Bootcamp and university integrations. Collaborative problem-solving builds real engineering skills.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border)" id="languages">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// LANGUAGES</span>
+      <h2>Write in <span class="gradient-text">Your Language</span></h2>
+      <p>Four languages at launch. Each with full standard library access and idiomatic test suites.</p>
+    </div>
+    <div class="lang-grid">
+      <div class="lang-card">
+        <div class="lang-icon">&#128013;</div>
+        <h4>Python</h4>
+        <p>3.12 + NumPy</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-icon">&#9889;</div>
+        <h4>JavaScript</h4>
+        <p>ES2024 + Node 22</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-icon">&#9881;</div>
+        <h4>Rust</h4>
+        <p>1.80 stable</p>
+      </div>
+      <div class="lang-card">
+        <div class="lang-icon">&#128640;</div>
+        <h4>Go</h4>
+        <p>1.23 + stdlib</p>
+      </div>
+      <div class="lang-card" style="opacity:.5">
+        <div class="lang-icon">&#9749;</div>
+        <h4>Java</h4>
+        <p>Coming Q3</p>
+      </div>
+      <div class="lang-card" style="opacity:.5">
+        <div class="lang-icon">&#128142;</div>
+        <h4>C++</h4>
+        <p>Coming Q3</p>
+      </div>
+      <div class="lang-card" style="opacity:.5">
+        <div class="lang-icon">&#128296;</div>
+        <h4>TypeScript</h4>
+        <p>Coming Q4</p>
+      </div>
+      <div class="lang-card" style="opacity:.5">
+        <div class="lang-icon">&#127384;</div>
+        <h4>C#</h4>
+        <p>Coming Q4</p>
+      </div>
+    </div>
+
+    <div class="difficulty-grid" style="margin-top:4rem">
+      <div class="diff-card level-easy">
+        <span class="diff-level">EASY</span>
+        <h4>Fundamentals</h4>
+        <p>Arrays, strings, hash maps, basic recursion. Perfect for beginners.</p>
+      </div>
+      <div class="diff-card level-medium">
+        <span class="diff-level">MEDIUM</span>
+        <h4>Intermediate</h4>
+        <p>Trees, graphs, dynamic programming, BFS/DFS. Interview-level.</p>
+      </div>
+      <div class="diff-card level-hard">
+        <span class="diff-level">HARD</span>
+        <h4>Advanced</h4>
+        <p>Segment trees, advanced DP, network flow. Competitive programming.</p>
+      </div>
+      <div class="diff-card level-expert">
+        <span class="diff-level">EXPERT</span>
+        <h4>Research</h4>
+        <p>NP-hard approximations, novel algorithms. For the ambitious.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="ai">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// AI ENGINE</span>
+      <h2>Problems That <span class="gradient-text">Adapt to You</span></h2>
+      <p>Our AI generates unique problems calibrated to your exact skill profile.</p>
+    </div>
+    <div class="ai-features">
+      <div class="ai-visual">
+        <div class="ai-prompt">
+          <div class="system">[system] Generate a challenge for user skill profile:</div>
+          <div class="dim" style="padding-left:1rem">- Arrays: 85% mastery</div>
+          <div class="dim" style="padding-left:1rem">- Hash Maps: 72% mastery</div>
+          <div class="dim" style="padding-left:1rem">- Trees: 45% mastery (weak)</div>
+          <div class="dim" style="padding-left:1rem">- Dynamic Programming: 30% (needs work)</div>
+          <div class="dim" style="padding-left:1rem">- Target difficulty: Medium</div>
+          <br>
+          <div class="assistant">[generated] Challenge: Binary Tree Path Sum</div>
+          <div class="dim" style="padding-left:1rem">Topics: Trees + Hash Maps (reinforce weak + strong)</div>
+          <div class="dim" style="padding-left:1rem">Difficulty: Medium (calibrated to 45% tree mastery)</div>
+          <div class="dim" style="padding-left:1rem">Test cases: 8 (including 2 edge cases)</div>
+          <div class="dim" style="padding-left:1rem">Time limit: 100ms</div>
+          <div class="dim" style="padding-left:1rem">Hint chain: 3 progressive hints available</div>
+          <div class="dim" style="padding-left:1rem">Learning objective: DFS with accumulator pattern</div>
+        </div>
+      </div>
+      <div class="ai-list">
+        <h3>How AI Adaptation Works</h3>
+        <ul>
+          <li>
+            <span class="ai-check">&#10003;</span>
+            <div><strong>Skill Profiling</strong> — Every submission updates your mastery map across 40+ algorithm categories. The model tracks speed, accuracy, and approach patterns.</div>
+          </li>
+          <li>
+            <span class="ai-check">&#10003;</span>
+            <div><strong>Targeted Weakness Training</strong> — Problems combine strong topics with weak ones. You practice gaps without losing confidence on things you know.</div>
+          </li>
+          <li>
+            <span class="ai-check">&#10003;</span>
+            <div><strong>Progressive Hints</strong> — Stuck? Three-tier hint system: conceptual nudge, approach suggestion, partial solution. Each hint reduces XP but keeps you learning.</div>
+          </li>
+          <li>
+            <span class="ai-check">&#10003;</span>
+            <div><strong>Solution Analysis</strong> — After submission, AI explains optimal approaches, common pitfalls, and how your solution compares to the ideal. Time and space complexity auto-detected.</div>
+          </li>
+          <li>
+            <span class="ai-check">&#10003;</span>
+            <div><strong>Unique Problems</strong> — No memorizing answers from LeetCode. AI generates novel variations ensuring you understand concepts, not solutions.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--surface);border-top:1px solid var(--card-border);border-bottom:1px solid var(--card-border)" id="leaderboard">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// COMPETE</span>
+      <h2>Climb the <span class="gradient-text">Leaderboard</span></h2>
+      <p>ELO-rated competition. Weekly contests. Team events.</p>
+    </div>
+    <div class="leaderboard">
+      <div class="lb-header">
+        <h3>Global Rankings</h3>
+        <span class="lb-badge">LIVE</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank gold">1</span>
+        <span class="lb-name">rustacean_42</span>
+        <span class="lb-score">2847</span>
+        <span class="lb-streak">142-day streak</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank silver">2</span>
+        <span class="lb-name">algo_queen</span>
+        <span class="lb-score">2791</span>
+        <span class="lb-streak">89-day streak</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank bronze">3</span>
+        <span class="lb-name">pyth0n_wizard</span>
+        <span class="lb-score">2734</span>
+        <span class="lb-streak">67-day streak</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank">4</span>
+        <span class="lb-name">go_concurrency</span>
+        <span class="lb-score">2698</span>
+        <span class="lb-streak">201-day streak</span>
+      </div>
+      <div class="lb-row">
+        <span class="lb-rank">5</span>
+        <span class="lb-name">dp_master</span>
+        <span class="lb-score">2655</span>
+        <span class="lb-streak">34-day streak</span>
+      </div>
+      <div class="lb-row" style="background:rgba(255,34,85,.05)">
+        <span class="lb-rank" style="color:var(--pink)">247</span>
+        <span class="lb-name" style="color:var(--pink)">you</span>
+        <span class="lb-score">1523</span>
+        <span class="lb-streak">Start today</span>
+      </div>
+    </div>
+
+    <div class="metric-row">
+      <div class="metric-box">
+        <div class="metric-val">500+</div>
+        <div class="metric-label">Curated Problems</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val">Infinite</div>
+        <div class="metric-label">AI-Generated</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val">Weekly</div>
+        <div class="metric-label">Contests</div>
+      </div>
+      <div class="metric-box">
+        <div class="metric-val">40+</div>
+        <div class="metric-label">Algorithm Topics</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// PRICING</span>
+      <h2>Start Free. <span class="gradient-text">Go Pro.</span></h2>
+      <p>5 challenges per day on the free tier. Unlimited with Pro.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="plan-name">FREE</div>
+        <div class="price">$0</div>
+        <div class="plan-desc">5 challenges per day. Perfect for exploring.</div>
+        <ul class="pricing-features">
+          <li>5 challenges per day</li>
+          <li>All 4 languages</li>
+          <li>Easy + Medium problems</li>
+          <li>Basic skill tracking</li>
+          <li>Global leaderboard</li>
+          <li>Community discussions</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;text-align:center">Start Free</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="plan-name">PRO</div>
+        <div class="price">$14<span>.99/mo</span></div>
+        <div class="plan-desc">Unlimited challenges. Full AI adaptation.</div>
+        <ul class="pricing-features">
+          <li>Unlimited challenges</li>
+          <li>All difficulty levels</li>
+          <li>AI-adaptive problem generation</li>
+          <li>Detailed skill analytics</li>
+          <li>Solution explanations</li>
+          <li>Progressive hint system</li>
+          <li>Weekly contest access</li>
+          <li>Team creation</li>
+          <li>Export skill profile</li>
+        </ul>
+        <a href="#" class="btn btn-primary" style="width:100%;text-align:center">Go Pro</a>
+      </div>
+      <div class="pricing-card">
+        <div class="plan-name">TEAMS</div>
+        <div class="price">$9<span>/seat/mo</span></div>
+        <div class="plan-desc">For bootcamps, universities, and engineering teams.</div>
+        <ul class="pricing-features">
+          <li>Everything in Pro</li>
+          <li>Team dashboard + analytics</li>
+          <li>Custom problem sets</li>
+          <li>LMS integration (LTI 1.3)</li>
+          <li>Admin controls</li>
+          <li>Private leaderboards</li>
+          <li>SSO (SAML/OIDC)</li>
+          <li>Priority support</li>
+        </ul>
+        <a href="#" class="btn btn-outline" style="width:100%;text-align:center">Contact Sales</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tech-stack">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">// UNDER THE HOOD</span>
+      <h2>Built for <span class="gradient-text">Speed and Safety</span></h2>
+      <p>Sandboxed execution. Sub-50ms response. Zero trust architecture.</p>
+    </div>
+    <div class="code-block">
+      <code>
+<span class="comment"># Code Challenge Architecture</span><br>
+<span class="comment"># Sandboxed execution with resource limits</span><br>
+<br>
+<span class="keyword">Runtime</span>: gVisor (sandboxed containers)<br>
+<span class="keyword">Execution</span>: &lt;50ms p99 response time<br>
+<span class="keyword">Languages</span>: Python 3.12, Node 22, Rust 1.80, Go 1.23<br>
+<span class="keyword">Limits</span>: 256MB memory, 5s timeout, no network, no filesystem<br>
+<span class="keyword">AI Engine</span>: Local inference (no external API calls)<br>
+<span class="keyword">Database</span>: PostgreSQL + Redis<br>
+<span class="keyword">Rating</span>: Glicko-2 (improved ELO)<br>
+<span class="keyword">Frontend</span>: Monaco Editor (VS Code engine)<br>
+      </code>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="start">
+  <div class="container">
+    <h2>Start <span class="gradient-text">Solving</span></h2>
+    <p>Your first challenge is waiting. No signup required for the first 5.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="#" class="btn btn-primary">Start First Challenge</a>
+      <a href="#" class="btn btn-outline">Browse Problems</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo" style="font-family:var(--font-heading);font-weight:700;font-size:1.2rem;color:var(--text-bright)"><span class="gradient-text">Code Challenge</span></div>
+        <p>Competitive programming meets education. Built by BlackRoad Education. Code challenges that actually teach you something.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#">Problems</a>
+        <a href="#">Contests</a>
+        <a href="#">API</a>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <a href="#">Documentation</a>
+        <a href="#">Blog</a>
+        <a href="#">Tutorials</a>
+        <a href="#">Community</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="https://blackroad.io">BlackRoad OS, Inc.</a>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>BlackRoad OS, Inc. All rights reserved. Proprietary license.</p>
+      <div class="legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var observer=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){entry.target.style.animationPlayState='running';observer.unobserve(entry.target)}
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.animate').forEach(function(el){el.style.animationPlayState='paused';observer.observe(el)});
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var t=document.querySelector(this.getAttribute('href'));
+      if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
+    });
+  });
+});
+</script>
+</body>
+</html>
