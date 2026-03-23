@@ -1,5 +1,13 @@
 # code-challenge
 
+> Code Challenges That Teach — competitive programming meets education
+
+Part of the [BlackRoad OS](https://blackroad.io) ecosystem — [BlackRoad-Education](https://github.com/BlackRoad-Education)
+
+---
+
+# code-challenge
+
 Code Challenges That Teach — competitive programming meets education
 
 **BlackRoad-Education** — Learning — tutoring, courses
